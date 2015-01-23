@@ -6,6 +6,7 @@ import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 public class ExpressionParser {
 
     public static void main(String[] args) throws Exception {
@@ -16,6 +17,13 @@ public class ExpressionParser {
         String test = "(43 ^ .86  + ((10 + 89) - 45) / 3";
         System.out.println(Arrays.toString(tokenize(test).toArray()));
         System.out.println(parseRPN(convertToRPN(test)));
+    }
+
+    public static String parseString(String s) throws Exception {
+
+        double x = Double.parseDouble(parseRPN(convertToRPN(s)));
+        String out = ((double)Math.round(x * 100000) / 100000) + "";
+        return out;
     }
 
     public static String parseRPN(String s) {
@@ -198,28 +206,24 @@ public class ExpressionParser {
         for (int i = 0; i < s.length(); i++) {
 
             if (s.charAt(i) == '(') {
+
                 x.push('(');
+                continue;
             }
+
             if (s.charAt(i) == ')') {
 
                 if (x.size() > 0 && x.peek() == '(') {
+
                     x.pop();
-                } else {
-                    x.push(')');
+                    continue;
                 }
+
+                x.push(')');
             }
         }
 
         return (x.size() == 0);
     }
 
-    public static double round(double num, double prec) {
-
-        double dec = (num * Math.pow(10, prec)) % (num * Math.pow(10, prec));
-        double out = (int) num;
-        double outBack = (dec / (Math.pow(10, prec)));
-        System.out.println(dec);
-
-        return out + outBack;
-    }
 }

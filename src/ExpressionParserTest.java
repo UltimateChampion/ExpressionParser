@@ -1,8 +1,16 @@
 import junit.framework.TestCase;
 
+import java.beans.Expression;
+
 public class ExpressionParserTest extends TestCase {
 
     private ExpressionParser ep;
+
+    public void testGeneral() throws Exception {
+
+        System.out.println(ExpressionParser.parseString("(57.9)*24/18 +      95.4/2"));
+        assertTrue(ExpressionParser.parseString("(57.9)*24/18 +      95.4/2").equals("124.9"));
+    }
 
     public void testParseRPN() throws Exception {
 
@@ -28,14 +36,6 @@ public class ExpressionParserTest extends TestCase {
     }
 
     public void testTokenize() throws Exception {
-
-    }
-
-    public void testIsOperator() throws Exception {
-
-    }
-
-    public void testOpPrecedence() throws Exception {
 
     }
 
